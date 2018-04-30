@@ -1,9 +1,12 @@
 ﻿l_english:
 
 ##focus
+
 ##naval
 NOR_encourage_fishing:0 "Encourage Fishing"
 NOR_encourage_fishing_desc:0 "Encouraging use of our long coastline and the surrounding rich fishing grounds, our economy could benefit."
+NOR_increase_fish_exports:0 "Increase Fish Exports"
+NOR_increase_fish_exports_desc:0 "W.I.P"
 NOR_navy:0 "Naval Buildup"
 NOR_navy_desc:0 "The Fleet has always been the strength of Norway. We should not neglect this grand legacy."
 NOR_establish_nortraship:0 "Establish Nortraship"

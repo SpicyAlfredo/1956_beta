@@ -6,41 +6,47 @@ focus_tree = {
 		
 		modifier = {
 			add = 10
-			original_tag = NOR
+			tag = NOR
 		}
 	}
 	
-	default = yes
+	default = no
+	
 	reset_on_civilwar = no
 	
-	continuous_focus_position = { x = 0 y = 800 }	
-
-	###############
-	#####naval#####
-	###############
+	continuous_focus_position = { x = 800 y = 800 }	
+	
+	#############
+	###	NAVAL ###
+	#############
 	
 	focus = {
 		id = NOR_encourage_fishing
 		icon = GFX_goal_generic_consumer_goods
-		x = 0
+		
+		x = 3
 		y = 0
 		cost = 5
+		
 		ai_will_do = {
 			factor = 10
 		}
+		
 		available = {
-			NOR = {
-				controls_state = 144
+			144 = {
+					is_controlled_by = ROOT
 			}
 		}
+		
 		cancel_if_invalid = yes
 		continue_if_invalid = no
+		
 		completion_reward = {
 			144 = {
-				add_extra_state_shared_building_slots = 2
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
-					level = 2
+					level = 1
 					instant_build = yes
 				}
 			}
@@ -49,9 +55,321 @@ focus_tree = {
 	}
 	
 	focus = {
+		id = NOR_increase_fish_exports
+		icon = GFX_goal_NOR_fish_exports
+		
+		prerequisite = { focus = NOR_encourage_fishing }
+		
+		x = 1
+		y = 1
+		cost = 5
+		
+		ai_will_do = {
+			factor = 10
+		}
+		
+		available = {
+			144 = {
+					is_controlled_by = ROOT
+			}
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		
+		completion_reward = {
+			144 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_ideas = NOR_fishing
+		}
+	}
+	
+	focus = {
+		id = NOR_establish_nortraship
+		icon = GFX_goal_generic_trade
+		prerequisite = { focus = NOR_encourage_fishing }
+		prerequisite = { focus = NOR_navy }
+		x = 3
+		y = 2
+		cost = 10
+		ai_will_do = {
+			factor = 10
+		}
+		available = { 
+			OR = {
+				threat > 0.20
+				has_war = yes
+				has_government = fascism
+				has_government = communism
+			}
+		}
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		completion_reward = {
+			remove_ideas = NOR_fishing
+			swap_ideas = {
+				remove_idea = NOR_dockyard_investments
+				add_idea = NOR_grand_naval_expansion
+			}
+		}	
+	}
+	
+	focus = {
+		id = NOR_landing_crafts
+		icon = GFX_goal_generic_amphibious_assault
+		prerequisite = { focus = NOR_establish_nortraship }
+		x = 0
+		y = 3
+		cost = 10
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			navy_experience = 50
+			add_tech_bonus = {
+				name = "landing crafts"
+				bonus = 0.5
+				uses = 1
+				category = tp_tech
+			}
+			add_tech_bonus = {
+				name = "marines"
+				bonus = 0.5
+				uses = 1
+				category = marine_tech
+			}
+		}
+	}
+	
+	focus = {
+		id = NOR_coastal_defence_priority
+		icon = GFX_goal_wip
+		prerequisite = { focus = NOR_establish_nortraship }
+		x = 4
+		y = 3
+		cost = 10
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+			NOR = {
+				controls_state = 142
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		completion_reward = {
+			custom_effect_tooltip = NOR_nortraship_deal_tt
+			142 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+		}	
+	}
+	
+	focus = {
+		id = NOR_improve_vessel_saftey
+		icon = GFX_goal_wip
+		prerequisite = { focus = NOR_establish_nortraship }
+		x = 2
+		y = 3
+		cost = 10
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			navy_experience = 50
+			add_tech_bonus = {
+				name = "landing crafts"
+				bonus = 0.5
+				uses = 1
+				category = tp_tech
+			}
+			add_tech_bonus = {
+				name = "marines"
+				bonus = 0.5
+				uses = 1
+				category = marine_tech
+			}
+		}
+	}
+	
+	focus = {
+		id = NOR_nortraship_deal
+		icon = GFX_goal_generic_construct_naval_dockyard
+		prerequisite = { focus = NOR_establish_nortraship }
+		x = 3
+		y = 4
+		cost = 10
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+			NOR = {
+				controls_state = 142
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		completion_reward = {
+			custom_effect_tooltip = NOR_nortraship_deal_tt
+			142 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+		}	
+	}
+	
+	focus = {
+		id = NOR_support_axis_war_effort
+		icon = GFX_goal_support_fascism
+		prerequisite = { focus = NOR_nortraship_deal }
+		mutually_exclusive = { focus = NOR_support_allied_war_effort }
+		mutually_exclusive = { focus = NOR_support_soviet_war_effort }
+		mutually_exclusive = { focus = NOR_cooperation_with_our_own_allies }
+		x = 0
+		y = 5
+		cost = 10
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+			NOR = {
+				controls_state = 142
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		completion_reward = {
+			custom_effect_tooltip = NOR_nortraship_deal_tt
+			142 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+		}	
+	}
+	
+	focus = {
+		id = NOR_support_allied_war_effort
+		icon = GFX_goal_support_democracy
+		prerequisite = { focus = NOR_nortraship_deal }
+		mutually_exclusive = { focus = NOR_support_axis_war_effort }
+		mutually_exclusive = { focus = NOR_support_soviet_war_effort }
+		mutually_exclusive = { focus = NOR_cooperation_with_our_own_allies }
+		x = 2
+		y = 5
+		cost = 10
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+			NOR = {
+				controls_state = 142
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		completion_reward = {
+			custom_effect_tooltip = NOR_nortraship_deal_tt
+			142 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+		}	
+	}
+	
+	focus = {
+		id = NOR_support_soviet_war_effort
+		icon = GFX_goal_support_communism
+		prerequisite = { focus = NOR_nortraship_deal }
+		mutually_exclusive = { focus = NOR_support_axis_war_effort }
+		mutually_exclusive = { focus = NOR_support_allied_war_effort }
+		mutually_exclusive = { focus = NOR_cooperation_with_our_own_allies }
+		x = 4
+		y = 5
+		cost = 10
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+			NOR = {
+				controls_state = 142
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		completion_reward = {
+			custom_effect_tooltip = NOR_nortraship_deal_tt
+			142 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+		}	
+	}
+	
+	focus = {
+		id = NOR_cooperation_with_our_own_allies
+		icon = GFX_goal_support_neutrality
+		prerequisite = { focus = NOR_nortraship_deal }
+		mutually_exclusive = { focus = NOR_support_axis_war_effort }
+		mutually_exclusive = { focus = NOR_support_allied_war_effort }
+		mutually_exclusive = { focus = NOR_support_soviet_war_effort }
+		x = 6
+		y = 5
+		cost = 10
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+			NOR = {
+				controls_state = 142
+			}
+		}
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		completion_reward = {
+			custom_effect_tooltip = NOR_nortraship_deal_tt
+			142 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+		}	
+	}
+	
+	focus = {
 		id = NOR_navy
 		icon = GFX_goal_continuous_naval_production
-		x = 5
+		x = 8
 		y = 0
 		cost = 10
 		ai_will_do = {
@@ -79,167 +397,10 @@ focus_tree = {
 	}
 	
 	focus = {
-		id = NOR_establish_nortraship
-		icon = GFX_goal_generic_trade
-		prerequisite = { focus = NOR_encourage_fishing }
-		prerequisite = { focus = NOR_navy }
-		x = 0
-		y = 2
-		cost = 10
-		ai_will_do = {
-			factor = 10
-		}
-		available = { 
-			OR = {
-				threat > 0.20
-				has_war = yes
-				has_government = fascism
-				has_government = communism
-			}
-		}
-		cancel_if_invalid = no
-		continue_if_invalid = yes
-		completion_reward = {
-			remove_ideas = NOR_fishing
-			swap_ideas = {
-				remove_idea = NOR_dockyard_investments
-				add_idea = NOR_grand_naval_expansion
-			}
-		}	
-	}
-	
-	focus = {
-		id = NOR_nortraship_deal
-		icon = GFX_goal_generic_construct_naval_dockyard
-		prerequisite = { focus = NOR_establish_nortraship }
-		x = 0
-		y = 4
-		cost = 10
-		ai_will_do = {
-			factor = 10
-		}
-		available = {
-			NOR = {
-				controls_state = 142
-			}
-		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		completion_reward = {
-			custom_effect_tooltip = NOR_nortraship_deal_tt
-			142 = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = dockyard
-					level = 2
-					instant_build = yes
-				}
-			}
-		}	
-	}
-	
-	focus = {
-		id = NOR_landing_crafts
-		icon = GFX_goal_generic_amphibious_assault
-		prerequisite = { focus = NOR_establish_nortraship }
-		x = 1
-		y = 3
-		cost = 10
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			navy_experience = 50
-			add_tech_bonus = {
-				name = "landing crafts"
-				bonus = 0.5
-				uses = 1
-				category = tp_tech
-			}
-			add_tech_bonus = {
-				name = "marines"
-				bonus = 0.5
-				uses = 1
-				category = marine_tech
-			}
-		}
-	}
-	
-	focus = {
-		id = NOR_escorts
-		icon = GFX_goal_generic_navy_anti_submarine
-		prerequisite = { focus = NOR_navy }
-		x = 3
-		y = 1
-		cost = 10
-
-		available_if_capitulated = yes
-
-
-		ai_will_do = {
-			factor = 10
-			modifier = {
-				factor = 0
-				all_owned_state = {
-					OR = {
-						is_coastal = no
-						dockyard < 1
-					}
-				}
-			}
-		}
-
-		completion_reward = {
-			add_tech_bonus = {
-				name = "destroyers"
-				bonus = 0.5
-				uses = 1
-				category = dd_tech
-			}
-			add_tech_bonus = {
-				name = "light cruisers"
-				bonus = 0.5
-				uses = 1
-				category = cl_tech
-			}
-		}
-	}
-	
-	focus = {
-		id = NOR_submarines
-		icon = GFX_goal_generic_navy_submarine
-		prerequisite = { focus = NOR_escorts }
-		x = 3
-		y = 2
-		cost = 10
-		available_if_capitulated = yes
-		ai_will_do = {
-			factor = 10
-			modifier = {
-				factor = 0
-				all_owned_state = {
-					OR = {
-						is_coastal = no
-						dockyard < 1
-					}
-				}
-			}
-		}
-		completion_reward = {
-			add_tech_bonus = {
-				name = "submarines"
-				bonus = 0.5
-				uses = 1
-				category = ss_tech
-			}
-		}
-	}
-	
-	focus = {
 		id = NOR_develop_naval_tactics
 		icon = GFX_goal_generic_navy_doctrines_tactics
 		prerequisite = { focus = NOR_navy }
-		x = 5
+		x = 8
 		y = 1
 		cost = 10
 
@@ -269,12 +430,45 @@ focus_tree = {
 	}
 	
 	focus = {
-		id = NOR_capital_ships
-		icon = GFX_focus_generic_navy_battleship2
+		id = NOR_aggressive_navy
+		icon = GFX_wip
 		prerequisite = { focus = NOR_escorts }
 		prerequisite = { focus = NOR_develop_naval_tactics }
-		x = 4
-		y = 3
+		mutually_exclusive = { focus = NOR_defensive_navy}
+		x = 7
+		y = 2
+		cost = 10
+		ai_will_do = {
+			factor = 3
+		}
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = "heavy cruisers"
+				bonus = 0.5
+				uses = 1
+				category = ca_tech
+			}
+			add_tech_bonus = {
+				name = "battleships"
+				bonus = 0.5
+				uses = 1
+				category = bb_tech
+			}
+			
+		}
+	}
+	
+	focus = {
+		id = NOR_defensive_navy
+		icon = GFX_wip
+		prerequisite = { focus = NOR_escorts }
+		prerequisite = { focus = NOR_develop_naval_tactics }
+		mutually_exclusive = { focus = NOR_aggressive_navy}
+		x = 9
+		y = 2
 		cost = 10
 		ai_will_do = {
 			factor = 3
@@ -303,7 +497,7 @@ focus_tree = {
 		id = NOR_navy_wing
 		icon = GFX_goal_generic_air_naval_bomber
 		prerequisite = { focus = NOR_navy }
-		x = 7
+		x = 10
 		y = 1
 		cost = 10
 		ai_will_do = {
@@ -320,31 +514,6 @@ focus_tree = {
 		}
 	}
 	
-	focus = {
-		id = NOR_carrier
-		icon = GFX_goal_generic_navy_carrier
-		prerequisite = { focus = NOR_develop_naval_tactics }
-		prerequisite = { focus = NOR_navy_wing }
-		x = 6
-		y = 3
-		cost = 10
-		ai_will_do = {
-			factor = 1
-		}
-
-		available_if_capitulated = yes
-
-		completion_reward = {
-			add_tech_bonus = {
-				name = "carriers"
-				bonus = 0.5
-				uses = 1
-				category = cv_tech
-			}
-			
-		}
-	}
-	
 	#############
 	#####air#####
 	#############
@@ -352,7 +521,7 @@ focus_tree = {
 	focus = {
 		id = NOR_bases
 		icon = GFX_goal_generic_build_airforce
-		x = 9
+		x = 20
 		y = 0
 		cost = 10
 		ai_will_do = {
@@ -400,7 +569,7 @@ focus_tree = {
 		prerequisite = { focus = NOR_bases }
 		prerequisite = { focus = NOR_navy_wing }
 		prerequisite = { focus = NOR_army_wing }
-		x = 9
+		x = 15
 		y = 2
 		cost = 10
 		ai_will_do = {
@@ -421,7 +590,7 @@ focus_tree = {
 		id = NOR_light_fighter
 		prerequisite = { focus = NOR_merge }
 		icon = GFX_goal_generic_air_fighter
-		x = 8
+		x = 15
 		y = 3
 		cost = 10
 		ai_will_do = {
@@ -444,7 +613,7 @@ focus_tree = {
 		id = NOR_fortify_military_bases
 		prerequisite = { focus = NOR_merge }
 		icon = GFX_goal_generic_construct_military
-		x = 9
+		x = 15
 		y = 4
 		cost = 10
 		ai_will_do = {
@@ -604,7 +773,7 @@ focus_tree = {
 		id = NOR_medium
 		prerequisite = { focus = NOR_merge }
 		icon = GFX_goal_generic_air_fighter2
-		x = 10
+		x = 15
 		y = 3
 		cost = 10
 		ai_will_do = {
@@ -657,7 +826,7 @@ focus_tree = {
 		id = NOR_army_wing
 		icon = GFX_goal_generic_CAS
 		prerequisite = { focus = NOR_army }
-		x = 11
+		x = 12
 		y = 1
 		cost = 10
 		ai_will_do = {
