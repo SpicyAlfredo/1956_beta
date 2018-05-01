@@ -1,8 +1,8 @@
 ﻿l_english:
 
-##focus
+##FOCUS
 
-##naval
+##NAVAL
 NOR_encourage_fishing:0 "Encourage Fishing"
 NOR_encourage_fishing_desc:0 "Encouraging use of our long coastline and the surrounding rich fishing grounds, our economy could benefit."
 NOR_increase_fish_exports:0 "Increase Fish Exports"
@@ -183,13 +183,15 @@ NOR_invite_fin_desc: "With Finland in our faction they should take part in our r
 NOR_expand_nor_research:0 "Expand the Technology Sharing"
 NOR_expand_nor_research_desc:0 "Import experts from our neighbours to help with our research, and further expand the technology sharing."
 
-##ideas
+##IDEAS
+NOR_fishing:0 "Encouraged Fishing"
+NOR_fishing_desc:0 "A modern fishing fleet and processing factories along the coast should let us take advantage of the rich fishing grounds along our coastline."
+NOR_fish_exports:0 "Fish Exports"
+NOR_fish_exports_desc:0 "To be written."
 NOR_state_investments:0 "State Investments"
 NOR_state_investments_desc:0 "The Norwegian State has recently funded a project, which means there's less money for other tasks for the time being."
 NOR_large_state_investments:0 "Large State Investments"
 NOR_large_state_investments_desc:0 "The Norwegian State has recently made a significant investment into a project. It will take some time to free up more funds."
-NOR_fishing:0 "Encouraged Fishing"
-NOR_fishing_desc:0 "A modern fishing fleet and processing factories along the coast should let us take advantage of the rich fishing grounds along our coastline."
 NOR_dockyard_investments:0 "Expanded Shipbuilding Industry"
 NOR_dockyard_investments_desc:0 "Investments into our dockyards and naval facilities allow us to be at the forefront of naval innovation and production."
 NOR_grand_naval_expansion:0 "Grand Naval Expansion"
