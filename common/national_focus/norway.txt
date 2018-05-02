@@ -14,19 +14,47 @@ focus_tree = {
 	
 	reset_on_civilwar = no
 	
-	continuous_focus_position = { x = 800 y = 800 }	
+	continuous_focus_position = { x = 800 y = 800 }
 	
-	#############
-	###	NAVAL ###
-	#############
+	###
+	###	NAVAL
+	###
 	
 	focus = {
 		id = NOR_encourage_fishing
 		icon = GFX_goal_generic_consumer_goods
 		
-		x = 3
+		x = 2
 		y = 0
 		cost = 5
+		
+		ai_will_do = {
+			factor = 10
+		}
+		
+		available = {
+			144 = {
+					is_controlled_by = ROOT
+			}
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		
+		completion_reward = {
+			add_ideas = NOR_fishing
+		}
+	}
+	
+	focus = {
+		id = NOR_build_more_fish_facilities
+		icon = GFX_goal_generic_construction
+		
+		prerequisite = { focus = NOR_encourage_fishing }
+		
+		x = 2
+		y = 1
+		cost = 10
 		
 		ai_will_do = {
 			factor = 10
@@ -50,19 +78,18 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			add_ideas = NOR_fishing
 		}
 	}
 	
 	focus = {
-		id = NOR_increase_fish_exports
-		icon = GFX_goal_NOR_fish_exports
+		id = NOR_improve_fish_exports
+		icon = GFX_goal_wip
 		
-		prerequisite = { focus = NOR_encourage_fishing }
+		prerequisite = { focus = NOR_build_more_fish_facilities }
 		
-		x = 1
-		y = 1
-		cost = 5
+		x = 2
+		y = 2
+		cost = 10
 		
 		ai_will_do = {
 			factor = 10
@@ -98,7 +125,7 @@ focus_tree = {
 		icon = GFX_goal_generic_trade
 		prerequisite = { focus = NOR_encourage_fishing }
 		prerequisite = { focus = NOR_navy }
-		x = 3
+		x = 5
 		y = 2
 		cost = 10
 		ai_will_do = {
@@ -372,7 +399,7 @@ focus_tree = {
 	focus = {
 		id = NOR_navy
 		icon = GFX_goal_continuous_naval_production
-		x = 8
+		x = 10
 		y = 0
 		cost = 10
 		ai_will_do = {
