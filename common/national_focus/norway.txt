@@ -83,7 +83,7 @@ focus_tree = {
 	
 	focus = {
 		id = NOR_improve_fish_exports
-		icon = GFX_goal_wip
+		icon = GFX_goal_generic_positive_trade_relations
 		
 		prerequisite = { focus = NOR_build_more_fish_facilities }
 		
@@ -121,28 +121,68 @@ focus_tree = {
 	}
 	
 	focus = {
-		id = NOR_establish_nortraship
-		icon = GFX_goal_generic_trade
-		prerequisite = { focus = NOR_encourage_fishing }
-		prerequisite = { focus = NOR_navy }
-		x = 5
-		y = 2
+		id = NOR_naval_buildup
+		icon = GFX_goal_continuous_naval_production
+		
+		x = 10
+		y = 0
 		cost = 10
+		
 		ai_will_do = {
 			factor = 10
 		}
+		
+		available = {
+			110 = {
+					is_controlled_by = ROOT
+			}
+		}
+		
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		
+		completion_reward = {
+			navy_experience = 25
+			110 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = dockyard
+					level = 3
+					instant_build = yes
+				}
+			}
+			add_ideas = NOR_dockyard_investments
+		}
+	}
+	
+	focus = {
+		id = NOR_establish_nortraship
+		icon = GFX_goal_generic_trade
+		
+		prerequisite = { focus = NOR_encourage_fishing }
+		prerequisite = { focus = NOR_naval_buildup }
+		
+		x = 5
+		y = 2
+		cost = 10
+		
+		ai_will_do = {
+			factor = 10
+		}
+		
 		available = { 
 			OR = {
-				threat > 0.20
+				threat > 0.30
 				has_war = yes
 				has_government = fascism
 				has_government = communism
 			}
 		}
+		
 		cancel_if_invalid = no
 		continue_if_invalid = yes
+		
 		completion_reward = {
-			remove_ideas = NOR_fishing
 			swap_ideas = {
 				remove_idea = NOR_dockyard_investments
 				add_idea = NOR_grand_naval_expansion
@@ -394,36 +434,6 @@ focus_tree = {
 				}
 			}
 		}	
-	}
-	
-	focus = {
-		id = NOR_navy
-		icon = GFX_goal_continuous_naval_production
-		x = 10
-		y = 0
-		cost = 10
-		ai_will_do = {
-			factor = 10
-		}
-		available = {
-			NOR = {
-				controls_state = 110
-			}
-		}
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		completion_reward = {
-			navy_experience = 25
-			110 = {
-				add_extra_state_shared_building_slots = 3
-				add_building_construction = {
-					type = dockyard
-					level = 3
-					instant_build = yes
-				}
-			}
-			add_ideas = NOR_dockyard_investments
-		}
 	}
 	
 	focus = {

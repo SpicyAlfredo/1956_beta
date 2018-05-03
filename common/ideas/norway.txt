@@ -681,10 +681,10 @@ ideas = {
 			
 			removal_cost = -1
 			
-			picture = escort_effort_focus
+			picture = generic_sea_focused_navy
 			
 			modifier = {
-				consumer_goods_factor = -0.05
+				consumer_goods_factor = -0.04
 				trade_opinion_factor = 0.2
 			}
 		}
@@ -692,21 +692,22 @@ ideas = {
 		NOR_dockyard_investments = {
 			
 			removal_cost = -1
+			
 			picture = generic_navy_bonus
 			
 			modifier = {
 				industrial_capacity_dockyard = 0.10
 			}
 		}
-				
+		
 		NOR_grand_naval_expansion = {
 			
-			removal_cost = -1		
+			removal_cost = -1
 			
 			picture = liberty_ships_focus
 			
 			modifier = {
-				consumer_goods_factor = -0.03
+				consumer_goods_factor = -0.02
 				industrial_capacity_dockyard = 0.15
 			}
 			
